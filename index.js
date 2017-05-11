@@ -3,10 +3,10 @@ require('skellington')({
   clientSecret: process.env.CLIENT_SECRET,
   port: process.env.PORT,
   plugins: [
-    require('./plugins/close-rtm'),
     require('./plugins/visitor-log')
   ],
   scopes: ['bot', 'channels:history', 'groups:history', 'im:history', 'mpim:history'],
+  startRtm: false,
   botkit: {
     debug: true,
     json_file_store: './db'
