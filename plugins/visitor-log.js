@@ -9,20 +9,22 @@ const visitorLogBaseUrl = 'https://datalab.politico.com/databases/white-house-vi
 
 module.exports = {
   init: (controller) => {
-    controller.hears([/^wdt (.*)$/i, /^who did Donald Trump meet with (.*)/i], ['direct_message', 'direct_mention'], meetWho)
+    controller.hears([/^wdt (.*)$/i, /^who did (Donald )?Trump meet with (.*)/i], ['direct_message', 'direct_mention'], meetWho)
     controller.hears([/^who is (.*)$/], ['direct_message', 'direct_mention'], whoIs)
+    controller.hears([/^sources(\?)?$/], ['direct_message', 'direct_mention'], sources)
   },
   help: {
     command: 'visitor log',
     text: ({ botName }) => {
       return `To learn who Donald Trump has been meeting with, ask: \`@${botName} who did Donald Trump meet with today\`. You can replace "today" with any date and I'll do my best to find some meetings for that day. 
-Curious who someone is? ask \`@${botName} who is {person}\` and I'll let you know.`
+Curious who someone is? Ask \`@${botName} who is {person}\` and I'll let you know.
+Want to know where my data is coming from? Ask \`@${botName} sources\``
     }
   }
 }
 
 function meetWho(bot, message) {
-  const chronoResults = chrono.parse(message.match[1])
+  const chronoResults = chrono.parse(message.match[2])
   const chronoDate = moment(chronoResults[0].start.date())
   const queryDate = chronoDate.format('YYYY-MM-DD')
   const prettyDate = chronoDate.format('ll')
@@ -73,4 +75,8 @@ function whoIs(bot, message) {
   }, (err, res, body) => {
     console.log(body);
   })
+}
+
+function sources(bot, message) {
+  bot.reply(message, `Visitor log data provided by https://datalab.politico.com/databases/white-house-visitor-logs/api/docs/`);
 }
