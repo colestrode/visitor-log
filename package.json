@@ -1,0 +1,31 @@
+{
+  "name": "visitor-log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --ignore db/ index",
+    "test": "standard index.js lib/**.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colestrode/visitor-log.git"
+  },
+  "keywords": [],
+  "author": "Cole Furfaro-Strode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colestrode/visitor-log/issues"
+  },
+  "homepage": "https://github.com/colestrode/visitor-log#readme",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "request": "^2.81.0",
+    "skellington": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.2"
+  }
+}
